@@ -76,6 +76,43 @@ const buttons = document.querySelectorAll('button');
 
 function play(e){
     oneRound(e.target.id, getComputerChoice());
+    if (userScore === 5){
+        const message = document.createElement('div');
+        message.classList.add('message');
+        message.textContent = "congratulations! You have won"
+
+        results.appendChild(text);
+        results.appendChild(scores);
+        results.appendChild(message);
+    
+        userScore = 0;
+        computerScore = 0;
+    
+    }
+
+    else if(computerScore === 5){
+        const message = document.createElement('div');
+        message.classList.add('message');
+        message.textContent = "sadge you have not won"
+
+        results.appendChild(text);
+        results.appendChild(scores);
+        results.appendChild(message);
+    
+        userScore = 0;
+        computerScore = 0;
+    }
+
+    
+    else{
+        element = document.querySelector('.message');
+        if(element){
+            results.removeChild(element);
+        }
+        results.appendChild(text);
+        results.appendChild(scores);
+    }
+
 }
 
 
@@ -91,29 +128,4 @@ scores.classList.add('score');
 var userScore = 0;
 var computerScore = 0;
 
-buttons.forEach(button => button.addEventListener('click', play));
-
-if (userScore === 5){
-    text.textcontent += "congratulations! You have won"
-    results.appendChild(text);
-    results.appendChild(scores);
-
-    userScore = 0;
-    computerScore = 0;
-
-}
-else if(computerScore === 5){
-    text.textcontent += "sadge you have not won"
-    results.appendChild(text);
-    results.appendChild(scores);
-
-    userScore = 0;
-    computerScore = 0;
-}
-else{
-    results.appendChild(text);
-    results.appendChild(scores);
-
-}
-
-
+buttons.forEach(button => button.addEventListener('click', play)); //after the first time, it only runs play, doesn't go down anymore?
