@@ -13,23 +13,24 @@ function getComputerChoice(){
     }
 }
 
-var userScore = 0;
-var computerScore = 0;
 
 function oneRound(playerSelection, computerSelection){
     const fixedSelection = playerSelection.toLowerCase();
     if (fixedSelection === computerSelection){
         text.textContent = "you're tied! You both chose " + computerSelection;
+        scores.textContent = `you: ${userScore} and computer: ${computerScore}`;
     }
 
     else if (fixedSelection === 'paper'){
         if (computerSelection === 'scissors'){
             computerScore += 1;
             text.textContent = 'You lose! Scissors beats paper!';
+            scores.textContent = `you: ${userScore} and computer: ${computerScore}`;
         }
         else{
             userScore += 1;
             text.textContent = 'you win! paper beats rock!';
+            scores.textContent = `you: ${userScore} and computer: ${computerScore}`;
        }
     }
 
@@ -37,10 +38,12 @@ function oneRound(playerSelection, computerSelection){
         if (computerSelection === 'paper'){
             computerScore += 1;
             text.textContent = 'You lose! paper beats rock!';
+            scores.textContent = `you: ${userScore} and computer: ${computerScore}`;
         }
         else{
             userScore += 1;
             text.textContent = 'you win! rock beats scissors!';
+            scores.textContent = `you: ${userScore} and computer: ${computerScore}`;
        }
     }
 
@@ -48,10 +51,12 @@ function oneRound(playerSelection, computerSelection){
         if (computerSelection === 'rock'){
             computerScore += 1;
             text.textContent = 'You lose! Rock beats scissors!';
+            scores.textContent = `you: ${userScore} and computer: ${computerScore}`;
         }
         else{
             userScore += 1;
             text.textContent = 'you win! Scissors beats paper!';
+            scores.textContent = `you: ${userScore} and computer: ${computerScore}`;
        }
     }
 
@@ -68,18 +73,47 @@ function game(){
 const buttons = document.querySelectorAll('button');
 
 //adding div to display results:
+
+function play(e){
+    oneRound(e.target.id, getComputerChoice());
+}
+
+
 const results = document.querySelector('.results');
 
 const text = document.createElement('div');
 text.classList.add('text');
-buttons.forEach(button => button.addEventListener('click', () => oneRound(button.id, getComputerChoice())));
-
-results.appendChild(text);
 
 var scores = document.createElement('div');
 scores.classList.add('score');
-scores.textContent = `you: ${userScore} and computer: ${computerScore}`;
 
-results.appendChild(scores);
+//declaring useful variables 
+var userScore = 0;
+var computerScore = 0;
+
+buttons.forEach(button => button.addEventListener('click', play));
+
+if (userScore === 5){
+    text.textcontent += "congratulations! You have won"
+    results.appendChild(text);
+    results.appendChild(scores);
+
+    userScore = 0;
+    computerScore = 0;
+
+}
+else if(computerScore === 5){
+    text.textcontent += "sadge you have not won"
+    results.appendChild(text);
+    results.appendChild(scores);
+
+    userScore = 0;
+    computerScore = 0;
+}
+else{
+    results.appendChild(text);
+    results.appendChild(scores);
+
+}
 
 
