@@ -13,42 +13,45 @@ function getComputerChoice(){
     }
 }
 
+var userScore = 0;
+var computerScore = 0;
+
 function oneRound(playerSelection, computerSelection){
     const fixedSelection = playerSelection.toLowerCase();
     if (fixedSelection === computerSelection){
-        return "you're tied! You both chose " + computerSelection;
+        text.textContent = "you're tied! You both chose " + computerSelection;
     }
 
     else if (fixedSelection === 'paper'){
         if (computerSelection === 'scissors'){
             computerScore += 1;
-            return 'You lose! Scissors beats paper!';
+            text.textContent = 'You lose! Scissors beats paper!';
         }
         else{
             userScore += 1;
-            return 'you win! paper beats rock!';
+            text.textContent = 'you win! paper beats rock!';
        }
     }
 
     else if (fixedSelection === 'rock'){
         if (computerSelection === 'paper'){
             computerScore += 1;
-            return 'You lose! paper beats rock!';
+            text.textContent = 'You lose! paper beats rock!';
         }
         else{
             userScore += 1;
-            return 'you win! rock beats scissors!';
+            text.textContent = 'you win! rock beats scissors!';
        }
     }
 
     else {
         if (computerSelection === 'rock'){
             computerScore += 1;
-            return 'You lose! Rock beats scissors!';
+            text.textContent = 'You lose! Rock beats scissors!';
         }
         else{
             userScore += 1;
-            return 'you win! Scissors beats paper!';
+            text.textContent = 'you win! Scissors beats paper!';
        }
     }
 
@@ -69,17 +72,13 @@ const results = document.querySelector('.results');
 
 const text = document.createElement('div');
 text.classList.add('text');
-text.textContent = buttons.forEach(button => button.addEventListener('click', () => oneRound(button.id, getComputerChoice())));
+buttons.forEach(button => button.addEventListener('click', () => oneRound(button.id, getComputerChoice())));
 
 results.appendChild(text);
 
-var userScore = 0;
-var computerScore = 0;
-
 var scores = document.createElement('div');
 scores.classList.add('score');
-scores.textContent = `you: ${userScore}`;
-scores.textContent = `computer: ${computerScore}`;
+scores.textContent = `you: ${userScore} and computer: ${computerScore}`;
 
 results.appendChild(scores);
 
